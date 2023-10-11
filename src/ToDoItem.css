@@ -1,0 +1,30 @@
+.todo-item {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .todo-item.completed {
+    background-color: #cacaca; 
+  }
+  
+  .complete-checkbox {
+    margin-top: 10px;
+  }
+  
+  .todo-item h3 {
+    margin-bottom: 10px;
+  }
+  
+  .todo-item p {
+    margin-bottom: 5px;
+  }
+  
+  .complete-checkbox input[type="checkbox"] {
+    margin-left: 5px;
+    cursor: pointer;
+  }
+  
+  

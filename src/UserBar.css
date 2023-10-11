@@ -1,0 +1,15 @@
+.App {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Additional styles for child components (Logout and TodoList) can be added here if needed */
+  
