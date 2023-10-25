@@ -1,12 +1,17 @@
-import './App.css';
+import React, { useReducer } from 'react';
 import UserBar from './UserBar';
-import { useState } from 'react';
+import { userReducer } from './UserReducer';
+import { todoReducer } from './TodoReducer';
 
 function App() {
-  const [user,setUser]=useState(``)
+  const initialState = { user: '', isCreateTodoVisible: false, todos: [] };
+  const [state, dispatch] = useReducer(userReducer, initialState);
+
+  const [todos, todoDispatch] = useReducer(todoReducer, initialState.todos);
+
   return (
     <div>
-       <UserBar user={user} setUser={setUser} />
+      <UserBar user={state.user} isCreateTodoVisible={state.isCreateTodoVisible} dispatch={dispatch} todos={todos} todoDispatch={todoDispatch} />
     </div>
   );
 }

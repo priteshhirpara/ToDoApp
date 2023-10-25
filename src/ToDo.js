@@ -1,18 +1,20 @@
 import { useState } from "react";
 import './ToDo.css';
+import { v4 as uuidv4 } from 'uuid';
+
 export default function ToDo({user,onAddTodo}){
    
-    const [newTodo, setNewTodo] = useState({ title: "", description: "", author: "", dateCreated: null, complete: false, dateCompleted: null });
+    const [newTodo, setNewTodo] = useState({id:"", title: "", description: "", author: "", dateCreated: null, complete: false, dateCompleted: null });
   
     const handleInputChange = (event) => {
       const { name, value } = event.target;
-      setNewTodo({ ...newTodo, [name]: value,author:user, dateCreated: Date.now() });
+      setNewTodo({ ...newTodo, [name]: value,id:"",author:user, dateCreated: Date.now() });
     };
   
     const handleFormSubmit = (event) => {
       event.preventDefault();
       if (newTodo.title) {
-        onAddTodo({ ...newTodo,author:user, dateCreated: Date.now(), complete: false, dateCompleted: null });
+        onAddTodo({ ...newTodo,author:user,id:uuidv4(), dateCreated: Date.now(), complete: false, dateCompleted: null });
         setNewTodo({ title: "", description: "", author: "", dateCreated: null, complete: false, dateCompleted: null });
       }
     };

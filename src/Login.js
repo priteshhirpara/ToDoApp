@@ -1,17 +1,28 @@
-import { useState } from "react";
-import "./Login.css";
-export default function Login({setUser}){
-    const[userEmail,setUserEmail]=useState(``)
-    const[userPassword,setUserPassword]=useState(``)
-    function handleLoginEmailEvent(event){
-        setUserEmail(event.target.value);
-    }   
-    function handleLoginPasswordEvent(event){
-        setUserPassword(event.target.value);
-    }   
-    return (
-        <div className="login-container" id="login-block">
-          <form className="login-form" onSubmit={(event) => {event.preventDefault(); setUser(userEmail); }}>
+import React, { useState } from 'react';
+import './Login.css';
+
+export default function Login({ dispatch }) {
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+
+  function handleLoginEmailEvent(event) {
+    setUserEmail(event.target.value);
+  }
+
+  function handleLoginPasswordEvent(event) {
+    setUserPassword(event.target.value);
+  }
+
+  function handleLoginSubmit(event) {
+    event.preventDefault();
+    if (userEmail && userPassword) {
+      dispatch({ type: 'LOGIN', data: userEmail });
+    }
+  }
+
+  return (
+    <div className="login-container" id="login-block">
+          <form className="login-form" onSubmit={handleLoginSubmit}>
             <h2>Login</h2>
             <div className="form-group">
               <label htmlFor="login-useremail">Email:</label>
@@ -58,5 +69,5 @@ export default function Login({setUser}){
             </div>
           </form>
         </div>
-      );
-    }
+  );
+}
