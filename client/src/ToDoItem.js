@@ -1,7 +1,9 @@
-import React from "react";
+import React from 'react';
 import './ToDoItem.css';
+import { useStateValue } from './contexts';
 
-export default function TodoItem ({ todo, onToggleComplete, onDeleteTodo }) {
+export default function ToDoItem({ todo, onToggleComplete, onDeleteTodo }) {
+  const [{ user }, todoDispatch] = useStateValue();
   const { id, title, description, author, dateCreated, complete, dateCompleted } = todo;
 
   const handleDeleteClick = () => {
@@ -9,18 +11,20 @@ export default function TodoItem ({ todo, onToggleComplete, onDeleteTodo }) {
   };
 
   return (
-    <div className={`todo-item ${complete ? "completed" : ""}`}>
+    <div className={`todo-item ${complete ? 'completed' : ''}`}>
       <h3>{title}</h3>
       {description && <p>{description}</p>}
       <p>Author: {author}</p>
       <p>Created: {new Date(dateCreated).toLocaleString()}</p>
       <p>Id: {id}</p>
       <label className="complete-checkbox">
-        Complete:{" "}
-        <input type="checkbox" checked={complete} onChange={() => onToggleComplete(todo)} />
+        Complete:{' '}
+        <input type="checkbox" id={id} checked={complete} onChange={() => onToggleComplete(todo)} />
       </label>
       {complete && <p>Completed: {new Date(dateCompleted).toLocaleString()}</p>}
-      <button onClick={handleDeleteClick} className="delete-button">Delete</button>
+      <button onClick={handleDeleteClick} className="delete-button">
+        Delete
+      </button>
     </div>
   );
-};
+}

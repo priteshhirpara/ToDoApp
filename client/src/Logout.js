@@ -1,7 +1,9 @@
-import React from "react";
-import "./Login.css";
+import React from 'react';
+import { useStateValue } from './contexts';
 
-export default function Logout({ user, dispatch }) {
+export default function Logout() {
+  const [{ user }, dispatch] = useStateValue();
+
   return (
     <div className="login-container" id="login-block">
       <form className="login-form" onSubmit={(event) => { event.preventDefault(); dispatch({ type: 'LOGOUT' }); }}>
