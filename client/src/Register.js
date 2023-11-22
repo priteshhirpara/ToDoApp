@@ -3,24 +3,35 @@ import './Register.css';
 import { useResource } from 'react-request-hook';
 import { useStateValue } from './contexts';
 
+
 export default function Register() {
+  const [status, setStatus] = useState("")
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userConfirmPassword, setUserConfirmPassword] = useState('');
-  const [, dispatch] = useStateValue();
+  const [,dispatch]=useStateValue();
 
+  const [user, register] = useResource(() => ({
+    url: 'auth/register',
+    method: 'POST',
+    data: { username: userName, email: userEmail, password: userPassword, passwordConfirmation: userConfirmPassword }
+  }));
+  useEffect(() => {
+    
 
-  const [user , register ] = useResource(() => ({
-    url: '/users',
-    method: 'post',
-    data: { username:userName, email:userEmail, password:userPassword }
-    }));
-    useEffect(() => {
-      if (user && user.data) {
-      dispatch({ type: "REGISTER", data:userEmail });
+    if (user && user.isLoading === false && (user.data || user.error)) {
+      if (user.error) {
+        setStatus("Registration failed, please try again later.");
+      } else {
+        setStatus("Registration successful. You may now login.");
+        setUserName("");
+        setUserEmail("");
+        setUserPassword("");
+        setUserConfirmPassword("");
       }
-      }, [user]);
+    }
+  }, [user]);
   function handleLoginUsernameEvent(event) {
     setUserName(event.target.value);
   }
@@ -133,6 +144,7 @@ export default function Register() {
             Login
           </a>
         </div>
+        {status && <p>{status}</p>}
       </form>
     </div>
   );

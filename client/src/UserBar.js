@@ -19,8 +19,8 @@ export default function UserBar() {
   } else {
     return (
       <>
-        <Login dispatch />
         <Register dispatch />
+        <Login dispatch />
       </>
     );
   }

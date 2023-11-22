@@ -3,6 +3,7 @@ import './Login.css';
 import { useResource } from 'react-request-hook';
 import { useStateValue } from './contexts';
 
+
 export default function Login() {
   const [ loginFailed, setLoginFailed ] = useState(false)
   const [userEmail, setUserEmail] = useState('');
@@ -10,12 +11,11 @@ export default function Login() {
   const [, dispatch] = useStateValue();
 
   const [user, login] = useResource((data)=>({
-    url:'/login',
+    url:'/auth/login',
     method:'POST',
     data,
   }));
   useEffect(() => {
-
     if (user && user.isLoading === false && (user.data || user.error)) {
       if (user.error) {
         setLoginFailed(true);
@@ -23,8 +23,8 @@ export default function Login() {
         setLoginFailed(false);
         dispatch({
           type: "LOGIN",
-          data: user.data.user.email,
           access_token: user.data.access_token,
+          data: user.data.username,
         });
       }
     }

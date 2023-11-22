@@ -7,7 +7,7 @@ export default function Logout() {
   return (
     <div className="login-container" id="login-block">
       <form className="login-form" onSubmit={(event) => { event.preventDefault(); dispatch({ type: 'LOGOUT' }); }}>
-        <h2>Logged User Email: {user}</h2>
+        <h2>Logged User Name: {user}</h2>
         <div className="form-group">
           <input className="login-button" type="submit" value="Sign Out" />
         </div>

@@ -9,16 +9,16 @@ export const StateProvider = ({ reducer, initialState, children }) => {
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/todos');
+        const response = await axios.get('http://localhost:4000/todos');
         dispatch({ type: 'INITIALIZE_TODOS', data: response.data });
       } catch (error) {
         console.error('Error fetching todos:', error);
       }
     };
 
-    fetchTodos();
-  }, []);
 
+  }, []);
+  
   return <StateContext.Provider value={[state, dispatch]}>{children}</StateContext.Provider>;
 };
 

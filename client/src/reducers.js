@@ -1,7 +1,7 @@
 export const userReducer = (state, action) => {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, user: action.data, isCreateTodoVisible: true };
+      return { ...state, user: action.data, access_token: action.access_token, isCreateTodoVisible: true };
     case 'REGISTER':
       return { ...state, user: action.data, isCreateTodoVisible: true };
     case 'LOGOUT':

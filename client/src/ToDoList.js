@@ -1,32 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ToDoItem from './ToDoItem';
 import ToDo from './ToDo';
 import './ToDoList.css';
 import { useResource } from 'react-request-hook';
 import { useStateValue } from './contexts';
 
-export default function ToDoList() {
-  const [{ todos = [] }, dispatch] = useStateValue();
 
+export default function ToDoList() {
+   const [{ access_token }, dispatch] = useStateValue();
   const [todoResponse, getTodos] = useResource(() => ({
     url: '/todos',
+    headers: { Authorization: `${access_token}` },
     method: 'GET',
   }));
 
   const [createdTodoResponse, createTodo] = useResource((data) => ({
     url: '/todos',
+    headers: { Authorization: `${access_token}` },
     method: 'POST',
     data,
   }));
 
   const [updatedTodoResponse, updateTodo] = useResource((id, data) => ({
     url: `/todos/${id}`,
+    headers: { Authorization: `${access_token}` },
     method: 'PATCH',
     data,
   }));
 
   const [deletedTodoResponse, deleteTodo] = useResource((id) => ({
     url: `/todos/${id}`,
+    headers: { Authorization: `${access_token}` },
     method: 'DELETE',
   }));
 
@@ -60,13 +64,13 @@ export default function ToDoList() {
   };
 
   const handleToggleComplete = (clickedTodo) => {
-    const { id, ...rest } = clickedTodo;
-    updateTodo(id, { ...rest, complete: !clickedTodo.complete, dateCompleted: clickedTodo.complete ? null : Date.now() });
-    dispatch({ type: "TOGGLE_TODO", data: { id, ...rest, complete: !clickedTodo.complete, dateCompleted: clickedTodo.complete ? null : Date.now() } });
+    const { _id, ...rest } = clickedTodo;
+    updateTodo(_id, { ...rest, complete: !clickedTodo.complete, dateCompleted: clickedTodo.complete ? null : Date.now() });
+    dispatch({ type: "TOGGLE_TODO", data: { _id, ...rest, complete: !clickedTodo.complete, dateCompleted: clickedTodo.complete ? null : Date.now() } });
   };
 
   const handleDeleteTodo = (clickedTodo) => {
-    deleteTodo(clickedTodo.id);
+    deleteTodo(clickedTodo._id);
   };
   const reversedTodos = todoResponse.data ? [...todoResponse.data].reverse() : [];
 

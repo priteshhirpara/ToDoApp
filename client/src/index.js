@@ -7,7 +7,7 @@ import axios from 'axios';
 import './index.css';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3001',
+  baseURL: 'http://localhost:4000',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
